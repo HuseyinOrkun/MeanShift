@@ -11,8 +11,8 @@ for i = 7
     %[a,b] = evaluate_performance(gt,gt);
      c = makecform('xyz2uvl');
      uvl_img =  applycform(rgb2xyz(img),c);
-     %params = [0.001,0.01];
-     params = [0.01,0.1];
+     params = [0.005,0.1];
+     %params = [0.01,0.1];
      SegmentImage(uvl_img,params);
 end
 % I = imread('test7.jpg');

@@ -2,17 +2,16 @@ function [labels peaks] = SegmentImage(img,params)
 % use for test in small data subset 
 data = test();
 [n,d] = size(data);
-peaks_temp = zeros([n,d]) - 1;
-%[x,y,z] = size(img);
-% n = x*y; %points vs data
-r = params(2);
-%data = zeros(n,z);
+%[x,y,d] = size(img);
+%n = x*y; %points vs data
 % for i = 1:x
-%     for j = 1:y
-%      data((i-1)*y+j,:) = img(i,j,:) ; % I shoud append i,j in here
-%     end
+%      for j = 1:y
+%       data((i-1)*y+j,:) = img(i,j,:) ; % I shoud append i,j in here
+%      end
 % end
-%peaks_temp = zeros([n,z]) - 1;
+r = params(2);
+%data = zeros(n,d);
+peaks_temp = zeros([n,d]) - 1;
 
 clusters = zeros([n,1]) - 1;
 notUsedFlag = zeros([1,d]) - 1;
@@ -27,7 +26,7 @@ for i= 1:n
         if(peak_found)
             elim = 0;
             for j = i:n
-                if (  ~isequal(peaks_temp(i,:),notUsedFlag) && euclidean_dist(data(j,:),new_peak) <= r)
+                if (euclidean_dist(data(j,:),new_peak) <= r)
                 elim = elim + 1;
                 peaks_temp(j,:) = new_peak; 
                 end
@@ -46,7 +45,8 @@ for i= 1:n
             end
        end
 end
-scatter(peaks_temp(clusters,1),peaks_temp(clusters,2),"MarkerFaceColor",[1,0,0]);pause;
+scatter(peaks_temp(clusters,1),peaks_temp(clusters,2),"Marker",'+',"MarkerFaceColor",[1,0,0]);pause;
+size(clusters)
 %     
 %         dist_peaks = euclidean_dist(double(peaks_temp(j,:)),double(new_peak));
 %         if dist_peaks <= r/2
