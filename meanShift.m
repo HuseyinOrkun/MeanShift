@@ -8,18 +8,11 @@ b = r;                    % bandwidth?
 center = double(data(i,:)); 
 shift_dist = Inf;
 while (shift_dist > t)
-     diff_matrix =  double(sqrt(sum((data-center).^2,2)));
-     kernel = @kernel_gauss;
-     kernel_out_matrix(1,:) = bsxfun(kernel,diff_matrix,b); % Consider doing kernel here too
-     nom = kernel_out_matrix * data;
-     den = sum(kernel_out_matrix);   
-%     for j=1:n  Above is vectorized of this gor loop
-%         point = double(data(j,:));
-%         x = euclidean_dist(point,center);
-%         kernel_out = kernel_gauss(x,b);
-%         nom = nom + (kernel_out * point);
-%         den = den + kernel_out;
-%     end
+    diff_matrix =  double(sqrt(sum((data-center).^2,2)));
+    kernel = @kernel_gauss;
+    kernel_out_matrix(1,:) = bsxfun(kernel,diff_matrix,b); % Consider doing kernel here too
+    nom = kernel_out_matrix * data;
+    den = sum(kernel_out_matrix);   
     new_center = nom/den;
     shift_dist = euclidean_dist(new_center,center);
     if shift_dist >= t
