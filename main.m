@@ -5,7 +5,7 @@ gtfiles = dir(strcat(img_path,'*.png'));
 [r,c] = size(imagefiles);
 for i = 7
      I = imread(strcat(img_path,imagefiles(i).name) );
-     img = imresize(I, [100 NaN]); % This might not work, as number of
+     img = imresize(I, .5); % This might not work, as number of
      %labels differ.
     gt = imread(strcat(img_path,gtfiles(i).name));
     %[a,b] = evaluate_performance(gt,gt);

@@ -4,17 +4,17 @@ data = test();
 [n,d] = size(data);
 %[x,y,d] = size(img);
 %n = x*y; %points vs data
+%data = zeros(n,d);
 % for i = 1:x
-%      for j = 1:y
-%       data((i-1)*y+j,:) = img(i,j,:) ; % I shoud append i,j in here
-%      end
+%     for j = 1:y
+%        data((i-1)*y+j,:) = img(i,j,:) ; % I shoud append i,j in here
+%     end
 % end
 r = params(2);
-%data = zeros(n,d);
 peaks_temp = zeros([n,d]) - 1;
-
 clusters = zeros([n,1]) - 1;
 notUsedFlag = zeros([1,d]) - 1;
+% Implement Neighborhood thingy
 % Selim hoca baz?lar?n? atmay?p aras?na label bulunabilir demi?ti, nas?l?
 for i= 1:n
         peak_found = false;
@@ -26,7 +26,7 @@ for i= 1:n
         if(peak_found)
             elim = 0;
             for j = i:n
-                if (euclidean_dist(data(j,:),new_peak) <= r)
+                if (isequal(peaks_temp(j,:),notUsedFlag)&&euclidean_dist(data(j,:),new_peak) <= r)
                 elim = elim + 1;
                 peaks_temp(j,:) = new_peak; 
                 end
@@ -46,11 +46,3 @@ for i= 1:n
        end
 end
 scatter(peaks_temp(clusters,1),peaks_temp(clusters,2),"Marker",'+',"MarkerFaceColor",[1,0,0]);pause;
-size(clusters)
-%     
-%         dist_peaks = euclidean_dist(double(peaks_temp(j,:)),double(new_peak));
-%         if dist_peaks <= r/2
-%             peaks_temp(j,:) = (new_peak + peaks_temp(j,:))/2;
-%             new_peak = 
-%         end
-%     end

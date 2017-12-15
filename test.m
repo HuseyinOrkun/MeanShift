@@ -1,5 +1,5 @@
 function test_points = test()
-    nPtsPerClust = 250;
+    nPtsPerClust = 1000;
     nClust = 4; % define 4 clusters
     totalNumPts = nPtsPerClust*nClust;
     m(:,1) = [0.1,0.2]';

@@ -10,8 +10,8 @@ shift_dist = Inf;
 while (shift_dist > t)
      diff_matrix =  double(sqrt(sum((data-center).^2,2)));
      kernel = @kernel_gauss;
-     kernel_out_matrix(1,:) = bsxfun(kernel,diff_matrix,b); % Consider doing kernel here too
-     nom = kernel_out_matrix * data;
+     kernel_out_matrix = bsxfun(kernel,diff_matrix,b); % Consider doing kernel here too
+     nom = sum(kernel_out_matrix .* data);
      den = sum(kernel_out_matrix);   
 %     for j=1:n  Above is vectorized of this gor loop
 %         point = double(data(j,:));
