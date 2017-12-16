@@ -8,12 +8,12 @@ for i = 7
      img = imresize(I, .1); % This might not work, as number of
      %labels differ.
     gt = imread(strcat(img_path,gtfiles(i).name));
-    %[a,b] = evaluate_performance(gt,gt);
+    
      c = makecform('xyz2uvl');
      uvl_img =  applycform(rgb2xyz(img),c);
-     params = [0.008,0.2];
-     %params = [0.01,0.1];
+     params = [0.05,0.01];
      SegmentImage(uvl_img,params);
+     %[a,b] = evaluate_performance(gt,gt);
 end
 % I = imread('test7.jpg');
 % img = imresize(I, [200 NaN]);
