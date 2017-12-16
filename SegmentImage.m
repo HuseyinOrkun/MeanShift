@@ -20,14 +20,12 @@ for i= 1:n
         peak_found = false;
         if isequal(peaks_temp(i,:),notUsedFlag)
             new_peak = meanShift(data,i,params);
-            peaks_temp(i,:) = new_peak; 
             peak_found = true;
         end
-        if(peak_found)
-            elim = 0;
+        if(peak_found && ~any(ismember(peaks_temp,new_peak,'rows')))
+            peaks_temp(i,:) = new_peak; 
             for j = i:n
                 if (isequal(peaks_temp(j,:),notUsedFlag)&&euclidean_dist(data(j,:),new_peak) <= r)
-                elim = elim + 1;
                 peaks_temp(j,:) = new_peak; 
                 end
             end
