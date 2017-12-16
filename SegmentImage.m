@@ -14,8 +14,6 @@ r = params(2);
 peaks_temp = zeros([n,d]);
 clusters = zeros([n,1]);
 notUsedFlag = zeros([1,d]);
-% Implement Neighborhood thingy
-% Selim hoca baz?lar?n? atmay?p aras?na label bulunabilir demi?ti, nas?l?
 for i= 1:n
         peak_found = false;
         if isequal(peaks_temp(i,:),notUsedFlag)
@@ -24,27 +22,20 @@ for i= 1:n
         end
         if(peak_found)
             for j = i:n
-                if (isequal(peaks_temp(j,:),notUsedFlag)&&(euclidean_dist(data(j,:),new_peak) <= r))
+                if (isequal(peaks_temp(j,:),notUsedFlag)&&(norm(data(j,:)-new_peak) <= r))
                 peaks_temp(j,:) = new_peak; 
                 end
             end
+            
             % Compare all peaks and merge two peaks in one cluster if they are
             % closer than r/2 
+            non_empty = any(peaks_temp,2);
             
-%             dist_matrix =  sqrt(sum((double(peaks_temp)-double(new_peak)).^2,2));
-%             dist_matrix = dist_matrix(~all(peaks_temp==0,2));
-%             clusters(dist_matrix <= r/2) = i;
-%             if  isempty( clusters(dist_matrix<= r/2))
-%                 clusters(i) = i;
-%             end
-            notFoundFlag = true;
-            for j = 1:n 
-                if ~isequal(peaks_temp(j,:),notUsedFlag)&&((euclidean_dist(peaks_temp(j,:),new_peak)) <= r/2)
-                    clusters(j) = i;
-                    notFoundFlag = false;
-                end
-            end
-            if notFoundFlag
+            dist_matrix = sqrt(sum((peaks_temp-new_peak).^2,2));
+            dist_index = (dist_matrix <= r/2);
+            indices = non_empty & dist_index;
+            clusters(indices) = i;
+            if any(indices)
                 clusters(i) = i;
             end
         end

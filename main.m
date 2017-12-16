@@ -3,18 +3,18 @@ img_path = 'cs484_hw3_data\';
 imagefiles = dir(strcat(img_path,'*.jpg'));
 gtfiles = dir(strcat(img_path,'*.png'));
 [r,c] = size(imagefiles);
-for i = 7
+for i = 5
      I = imread(strcat(img_path,imagefiles(i).name) );
-     img = imresize(I, .1); % This might not work, as number of
+     img = imresize(I, .5); % This might not work, as number of
      %labels differ.
-    gt = imread(strcat(img_path,gtfiles(i).name));
+     gt = imread(strcat(img_path,gtfiles(i).name));
     
      c = makecform('xyz2uvl');
      uvl_img =  applycform(rgb2xyz(img),c);
-     params = [0.05,0.01];
-     SegmentImage(uvl_img,params);
+     params = [0.015,0.05];
+     [a,b] =SegmentImage(uvl_img,params);
      %[a,b] = evaluate_performance(gt,gt);
-end
+end 
 % I = imread('test7.jpg');
 % img = imresize(I, [200 NaN]);
 % params = [1,15];
