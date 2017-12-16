@@ -8,7 +8,7 @@ function test_points = test()
     m(:,4) = [0.5,0.1]';
     var = .1;
 
-    nPtsPerClust = [100,200,300,400];
+    nPtsPerClust = [100,125,150,200];
     %rng(0); % comment out if you want to make the data random
     x = var*randn(2,sum(nPtsPerClust));
     %*** build the point set
